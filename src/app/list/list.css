@@ -1,0 +1,141 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+.page-shell {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 48px 0 36px;
+}
+
+.hero {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  margin: 5px 0 8px;
+  color: var(--text-strong);
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  line-height: 1;
+}
+
+.hero p {
+  max-width: 560px;
+  margin: 0;
+  color: var(--text-muted);
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.contact-count {
+  display: grid;
+  min-width: 110px;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: white;
+  text-align: center;
+}
+
+.contact-count strong {
+  color: var(--accent-dark);
+  font-size: 1.55rem;
+}
+
+.contact-count span {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.grid-card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 20px 50px rgba(24, 50, 54, 0.08);
+}
+
+.toolbar-title {
+  color: var(--text-strong);
+  font-size: 1.03rem;
+  font-weight: 700;
+}
+
+.delete-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.storage-note {
+  margin: 14px 2px 0;
+  color: var(--text-muted);
+  font-size: 0.78rem;
+}
+
+:host ::ng-deep .dx-datagrid {
+  color: var(--text);
+  font-family: inherit;
+}
+
+:host ::ng-deep .dx-datagrid-header-panel {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+:host ::ng-deep .dx-toolbar {
+  background: transparent;
+}
+
+:host ::ng-deep .dx-datagrid-headers {
+  background: #f7faf9;
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+:host ::ng-deep .dx-datagrid-rowsview .dx-row {
+  cursor: pointer;
+}
+
+:host ::ng-deep .dx-datagrid-rowsview .dx-row > td {
+  padding-top: 14px;
+  padding-bottom: 14px;
+  vertical-align: middle;
+}
+
+:host ::ng-deep .dx-datagrid-rowsview .dx-state-hover > td {
+  background: #eef7f5;
+}
+
+:host ::ng-deep .dx-texteditor,
+:host ::ng-deep .dx-button {
+  border-radius: 8px;
+}
+
+:host ::ng-deep .dx-button-mode-contained.dx-button-default {
+  background: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    width: min(100% - 24px, 1180px);
+    padding-top: 30px;
+  }
+
+  .contact-count {
+    display: none;
+  }
+}

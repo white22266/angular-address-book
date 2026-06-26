@@ -1,0 +1,171 @@
+<main class="page-shell">
+  <section class="hero">
+    <div>
+      <span class="eyebrow">Contact Management</span>
+      <h1>Address Book</h1>
+
+      <p>
+        Contact information is stored in an in-memory
+        JavaScript array.
+      </p>
+    </div>
+
+    <div class="contact-count">
+      <strong>{{ contacts.length }}</strong>
+
+      <span>
+        {{ contacts.length === 1 ? 'contact' : 'contacts' }}
+      </span>
+    </div>
+  </section>
+
+  <section class="grid-card">
+    <dx-data-grid
+      [dataSource]="contacts"
+      keyExpr="id"
+      [showBorders]="false"
+      [showRowLines]="true"
+      [rowAlternationEnabled]="true"
+      [columnAutoWidth]="true"
+      [columnHidingEnabled]="true"
+      [hoverStateEnabled]="true"
+      [wordWrapEnabled]="true"
+      [repaintChangesOnly]="false"
+      noDataText="No contacts found."
+      (onRowClick)="onRowClick($event)"
+    >
+      <dxo-search-panel
+        [visible]="true"
+        [width]="250"
+        placeholder="Search contacts..."
+      ></dxo-search-panel>
+
+      <dxo-paging [pageSize]="8"></dxo-paging>
+
+      <dxo-pager
+        [visible]="true"
+        [showInfo]="true"
+        [showNavigationButtons]="true"
+      ></dxo-pager>
+
+      <dxo-toolbar>
+        <dxi-item
+          location="before"
+          template="toolbarTitle"
+        ></dxi-item>
+
+        <dxi-item
+          name="searchPanel"
+          location="after"
+        ></dxi-item>
+
+        <dxi-item
+          location="after"
+          template="addButtonTemplate"
+        ></dxi-item>
+      </dxo-toolbar>
+
+      <div
+        *dxTemplate="let data of 'toolbarTitle'"
+        class="toolbar-title"
+      >
+        Contact List
+      </div>
+
+      <div *dxTemplate="let data of 'addButtonTemplate'">
+        <dx-button
+          text="Add Contact"
+          icon="add"
+          type="default"
+          stylingMode="contained"
+          (onClick)="openCreatePopup()"
+        ></dx-button>
+      </div>
+
+      <dxi-column
+        dataField="name"
+        caption="Name"
+        [minWidth]="150"
+        sortOrder="asc"
+      ></dxi-column>
+
+      <dxi-column
+        dataField="email"
+        caption="Email"
+        [minWidth]="190"
+      ></dxi-column>
+
+      <dxi-column
+        dataField="phone"
+        caption="Phone"
+        [minWidth]="125"
+      ></dxi-column>
+
+      <dxi-column
+        caption="Address"
+        [calculateCellValue]="calculateAddress"
+        [minWidth]="230"
+      ></dxi-column>
+
+      <dxi-column
+        dataField="description"
+        caption="Description"
+        [minWidth]="160"
+        [hidingPriority]="0"
+      ></dxi-column>
+
+      <dxi-column
+        caption=""
+        cellTemplate="deleteCellTemplate"
+        [width]="72"
+        [fixed]="true"
+        fixedPosition="right"
+        [allowSorting]="false"
+        [allowFiltering]="false"
+      ></dxi-column>
+
+      <div
+        *dxTemplate="let cell of 'deleteCellTemplate'"
+        class="delete-cell"
+      >
+        <dx-button
+          icon="trash"
+          hint="Delete contact"
+          type="danger"
+          stylingMode="text"
+          (onClick)="deleteContact(cell.data, $event)"
+        ></dx-button>
+      </div>
+    </dx-data-grid>
+  </section>
+
+  <p class="storage-note">
+    The data resets when the browser page is refreshed.
+  </p>
+</main>
+
+<dx-popup
+  [visible]="popupVisible"
+  [title]="popupTitle"
+  [showTitle]="true"
+  [showCloseButton]="true"
+  [dragEnabled]="false"
+  [hideOnOutsideClick]="false"
+  [width]="'min(680px, 94vw)'"
+  [height]="'auto'"
+  [maxHeight]="'92vh'"
+  contentTemplate="popupContent"
+  (onHiding)="closePopup()"
+>
+  <div *dxTemplate="let data of 'popupContent'">
+    @if (popupVisible) {
+      <app-modal
+        [contact]="selectedContact"
+        [states]="stateList"
+        (createContact)="createContact($event)"
+        (updateContact)="updateContact($event)"
+        (cancel)="closePopup()"
+      ></app-modal>
+    }
+  </div>
+</dx-popup>

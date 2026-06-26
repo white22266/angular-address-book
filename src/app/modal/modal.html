@@ -1,0 +1,190 @@
+<div class="contact-form">
+  <div class="form-intro">
+    <span class="mode-badge">
+      {{
+        isCreateMode
+          ? 'New Contact'
+          : fieldsDisabled
+            ? 'Contact Details'
+            : 'Editing'
+      }}
+    </span>
+
+    <p>
+      {{
+        isCreateMode
+          ? 'Enter the new contact information.'
+          : fieldsDisabled
+            ? 'Click Edit to update this contact.'
+            : 'Update the fields and click Save.'
+      }}
+    </p>
+  </div>
+
+  <div class="form-grid">
+    <div class="field field-wide">
+      <label for="contact-name">
+        Name <span>*</span>
+      </label>
+
+      <dx-text-box
+        id="contact-name"
+        [(value)]="formData.name"
+        [disabled]="fieldsDisabled"
+        placeholder="Enter contact name"
+        valueChangeEvent="input"
+      >
+        <dx-validator>
+          <dxi-validation-rule
+            type="required"
+            message="Name is required"
+          ></dxi-validation-rule>
+        </dx-validator>
+      </dx-text-box>
+    </div>
+
+    <div class="field">
+      <label for="contact-email">Email</label>
+
+      <dx-text-box
+        id="contact-email"
+        [(value)]="formData.email"
+        [disabled]="fieldsDisabled"
+        mode="email"
+        placeholder="name@example.com"
+        valueChangeEvent="input"
+      >
+        <dx-validator>
+          <dxi-validation-rule
+            type="email"
+            message="Enter a valid email address"
+          ></dxi-validation-rule>
+        </dx-validator>
+      </dx-text-box>
+    </div>
+
+    <div class="field">
+      <label for="contact-phone">Phone</label>
+
+      <dx-text-box
+        id="contact-phone"
+        [(value)]="formData.phone"
+        [disabled]="fieldsDisabled"
+        mode="tel"
+        placeholder="Numbers only"
+        valueChangeEvent="input"
+      >
+        <dx-validator>
+          <dxi-validation-rule
+            type="pattern"
+            [pattern]="digitPattern"
+            message="Phone must contain numbers only"
+          ></dxi-validation-rule>
+        </dx-validator>
+      </dx-text-box>
+    </div>
+
+    <div class="field field-wide address-heading">
+      <h3>Address</h3>
+    </div>
+
+    <div class="field field-wide">
+      <label for="contact-street">Street</label>
+
+      <dx-text-box
+        id="contact-street"
+        [(value)]="formData.street"
+        [disabled]="fieldsDisabled"
+        placeholder="Enter street address"
+        valueChangeEvent="input"
+      ></dx-text-box>
+    </div>
+
+    <div class="field">
+      <label for="contact-state">State</label>
+
+      <dx-select-box
+        id="contact-state"
+        [(value)]="formData.state"
+        [items]="states"
+        [disabled]="fieldsDisabled"
+        [searchEnabled]="true"
+        placeholder="Select state"
+      ></dx-select-box>
+    </div>
+
+    <div class="field">
+      <label for="contact-postcode">Postcode</label>
+
+      <dx-text-box
+        id="contact-postcode"
+        [(value)]="formData.postcode"
+        [disabled]="fieldsDisabled"
+        placeholder="Numbers only"
+        valueChangeEvent="input"
+      >
+        <dx-validator>
+          <dxi-validation-rule
+            type="pattern"
+            [pattern]="digitPattern"
+            message="Postcode must contain numbers only"
+          ></dxi-validation-rule>
+        </dx-validator>
+      </dx-text-box>
+    </div>
+
+    <div class="field field-wide">
+      <label for="contact-description">Description</label>
+
+      <dx-text-area
+        id="contact-description"
+        [(value)]="formData.description"
+        [disabled]="fieldsDisabled"
+        [height]="90"
+        [maxLength]="300"
+        placeholder="Enter description"
+        valueChangeEvent="input"
+      ></dx-text-area>
+
+      <span class="character-count">
+        {{ formData.description.length }}/300
+      </span>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    @if (isCreateMode) {
+      <dx-button
+        text="Create"
+        icon="add"
+        type="default"
+        stylingMode="contained"
+        [disabled]="!isFormValid"
+        (onClick)="submit()"
+      ></dx-button>
+    } @else if (!isEditing) {
+      <dx-button
+        text="Edit"
+        icon="edit"
+        type="default"
+        stylingMode="contained"
+        (onClick)="enableEdit()"
+      ></dx-button>
+    } @else {
+      <dx-button
+        text="Save"
+        icon="save"
+        type="default"
+        stylingMode="contained"
+        [disabled]="!isFormValid"
+        (onClick)="submit()"
+      ></dx-button>
+    }
+
+    <dx-button
+      text="Cancel"
+      stylingMode="outlined"
+      (onClick)="close()"
+    ></dx-button>
+  </div>
+</div>
