@@ -8,12 +8,12 @@ Editing and saving a contact
 Deleting a contact
 Form validation
 
-Watch the Address Book demonstration video
+
 ![alt text](address-book.png)
 ![alt text](<contact detail.png>)
 ![alt text](delete.png)
 ![alt text](search.png)
-
+Watch the Address Book demonstration video
 <video controls src="video demo.mp4" title="Title"></video>
 
 
