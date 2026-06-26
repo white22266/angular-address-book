@@ -1,3 +1,25 @@
+Video Demonstration
+
+The video below demonstrates the main CRUD functions of the application:
+
+Creating a new contact
+Viewing contact details
+Editing and saving a contact
+Deleting a contact
+Form validation
+
+Watch the Address Book demonstration video
+![alt text](address-book.png)
+![alt text](<contact detail.png>)
+![alt text](delete.png)
+![alt text](search.png)
+
+<video controls src="video demo.mp4" title="Title"></video>
+
+
+
+
+
 # AddressBook
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.17.
